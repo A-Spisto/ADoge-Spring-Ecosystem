@@ -1,4 +1,4 @@
-package it.kaiser.melker.serviceImpl;
+package it.kaiser.melker.serviceimpl;
 
 import java.util.List;
 import java.util.Optional;
