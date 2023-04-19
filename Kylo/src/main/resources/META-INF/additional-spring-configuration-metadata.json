@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "kylo.client.url",
-  "type": "java.lang.String",
-  "description": "A description for 'kylo.client.url'"
-}]}
+{"properties": [
+  {
+    "name": "kylo.client.url",
+    "type": "java.lang.String",
+    "description": "A description for 'kylo.client.url'"
+  },
+  {
+    "name": "kylo.client.url",
+    "type": "java.lang.String",
+    "description": "A description for 'kylo.client.url'"
+  }
+]}
