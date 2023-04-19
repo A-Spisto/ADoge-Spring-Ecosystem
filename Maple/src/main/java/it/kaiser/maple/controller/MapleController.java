@@ -21,7 +21,7 @@ public class MapleController {
 	@GetMapping
 	public ResponseEntity<String> prendi() {
 
-		return new ResponseEntity<>("Non hai risolto un cazzo", HttpStatus.OK);
+		return new ResponseEntity<>("Maple ti Saluta", HttpStatus.OK);
 	}
 	
 	@GetMapping("/{fotoId}")
