@@ -1,6 +1,7 @@
 package it.kaiser.maple.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,14 @@ public class MapleController {
 	
 	@Autowired
 	private MapleService mapleService;
+	
+	@Autowired
+	private Environment env;
 
 	@GetMapping
 	public ResponseEntity<String> prendi() {
 
-		return new ResponseEntity<>("Maple ti Saluta", HttpStatus.OK);
+		return new ResponseEntity<>("Maple ti Saluta sulla porta "+env.getProperty("local.server.port"), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{fotoId}")

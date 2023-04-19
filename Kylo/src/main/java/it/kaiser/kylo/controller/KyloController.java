@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import it.kaiser.kylo.model.Commenti;
 import it.kaiser.kylo.service.KyloService;
 import reactor.core.publisher.Flux;
@@ -24,7 +23,6 @@ public class KyloController {
 
 	@Autowired
 	private KyloService kyloService;
-
 
 	@GetMapping
 	public String gettone() {
@@ -40,14 +38,15 @@ public class KyloController {
 
 	}
 
-	@GetMapping(value = "/stream/post"  /*,  produces = { "application/json" }*/ )
+	@GetMapping(value = "/stream/post" /* , produces = { "application/json" } */ )
 	public Flux<Commenti> gettoneTutto() {
 
 		return kyloService.getAll();
 	}
 
-	@GetMapping(value = "/stream/postone", produces = { "application/json" })
-	public ResponseEntity<List<Commenti>> gettoneTuttoToResponse() {
+
+	@GetMapping(value = "/commenti", produces = { "application/json" })
+	public ResponseEntity<List<Commenti>> ottieniCommenti() {
 
 		List<Commenti> listone = kyloService.getAllAsAList();
 		return new ResponseEntity<>(listone, HttpStatus.OK);
