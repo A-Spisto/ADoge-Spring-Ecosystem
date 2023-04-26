@@ -3,16 +3,19 @@ package it.kaiser.melker.service;
 import java.util.List;
 import java.util.Optional;
 
-import it.kaiser.melker.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
+import it.kaiser.melker.model.UserEntity;
+import it.kaiser.melker.model.UserDTO;
 
-	public List<User> findAll();
-	public Optional<User> findById(String id);
-	public User insert(User utente);
-	public User update(User utente);
+public interface UserService extends UserDetailsService{
+
+	public List<UserEntity> findAll();
+	public Optional<UserEntity> findById(String id);
+	public UserEntity insert(UserDTO utente);
+	public UserEntity update(UserEntity utente);
 	public void deleteById(String id);
-	public void delete(User utente);
+	public void delete(UserEntity utente);
 	
 	
 }
