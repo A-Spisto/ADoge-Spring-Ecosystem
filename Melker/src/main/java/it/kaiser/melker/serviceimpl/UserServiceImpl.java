@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,9 +23,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private MongoOperations mongoOperations;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -47,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
 		UserEntity utente = new UserEntity();
 		utente.setEmail(utenteDto.getEmail());
-		utente.setName(utenteDto.getName());
+		utente.setName(utenteDto.getFirstName());
 		utente.setRole("user");
 		utente.setId(UUID.randomUUID().toString());
 		utente.setEncryptedPassword(bCryptPasswordEncoder.encode(utenteDto.getPassword()));
@@ -78,14 +75,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		UserEntity utente = userRepository.findUserByEmail(username);
+		Optional<UserEntity> utente = userRepository.findUserByEmail(username);
 
-		if (utente == null)
+		if (utente.isEmpty())
 			throw new UsernameNotFoundException(username);
 
-		return new User(utente.getEmail(), utente.getEncryptedPassword(), 
+		return new User(utente.get().getEmail(), utente.get().getEncryptedPassword(), 
 				true, true, true, true, new ArrayList<>());
 
+	}
+
+	@Override
+	public UserDTO findByEmail(String email) {
+		Optional<UserEntity> utente = userRepository.findUserByEmail(email);
+
+		if (utente.isEmpty())
+			throw new UsernameNotFoundException(email);
+	
+		return new ModelMapper().map(utente, UserDTO.class);
 	}
 
 }

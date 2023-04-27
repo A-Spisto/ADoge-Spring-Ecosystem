@@ -50,7 +50,7 @@ public class WebSecurity {
         http.authorizeHttpRequests()
         .antMatchers(HttpMethod.POST, "/users").permitAll()
         .and()
-        .addFilter(new AuthenticationFilter(authenticationManager))
+        .addFilter(new AuthenticationFilter(userService,environment,authenticationManager))
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
  
         http.headers().frameOptions().disable();

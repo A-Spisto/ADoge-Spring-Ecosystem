@@ -12,6 +12,7 @@ public interface UserService extends UserDetailsService{
 
 	public List<UserEntity> findAll();
 	public Optional<UserEntity> findById(String id);
+	public UserDTO findByEmail(String email);
 	public UserEntity insert(UserDTO utente);
 	public UserEntity update(UserEntity utente);
 	public void deleteById(String id);
